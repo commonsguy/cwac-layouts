@@ -106,7 +106,7 @@ it is only being tested on API Level 8+.
 
 Version
 -------
-This is version v0.1.0 of this module, meaning it is brand-spankin' new.
+This is version v0.2.0 of this module, meaning it is coming along nicely.
 
 Demo
 ----
@@ -141,6 +141,7 @@ the fence may work, but it may not.
 
 Release Notes
 -------------
+- v0.2.0: added `AspectLockedFrameLayout` and used for `MirroringFrameLayout`
 - v0.1.0: initial release
 
 Who Made This?
