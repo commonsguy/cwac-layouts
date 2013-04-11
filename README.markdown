@@ -7,8 +7,47 @@ has a handful
 of Android containers (`ViewGroup` implementations) designed to handle
 specific scenarios: 
 
+- `AspectLockedFrameLayout` that resizes itself, and its children, to
+fit within a specific aspect ratio
+
 - `MirroringFrameLayout` and an associated `Mirror` that duplicates and
 scales the contents of the `MirroringFrameLayout` onto the `Mirror`
+
+Usage: AspectLockedFrameLayout
+------------------------------
+`AspectLockedFrameLayout` inherits from `FrameLayout`, and so you start by
+setting it up much like you would any other `FrameLayout`. In fact, if you do
+nothing else, it behaves the same as a regular `FrameLayout`.
+
+However, if you call `setAspectRatio()` (supplying a `double` of the aspect
+ratio you want) or `setAspectRatioSource()` (supplying a `View` whose aspect
+ratio should be matched), then `AspectLockedFrameLayout` will reduce its height
+or width to maintain the requested aspect ratio. This affects the children of
+the `AspectLockedFrameLayout` as well, of course.
+
+Since the `AspectLockedFrameLayout` effectively overrides and reduces its size,
+you can use `android:layout_gravity` to position the shrunken
+`AspectLockedFrameLayout` within its parent:
+
+```xml
+<FrameLayout
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<com.commonsware.cwac.layouts.AspectLockedFrameLayout
+		android:id="@+id/source"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_gravity="center">
+
+		<!-- children go here -->
+	</com.commonsware.cwac.layouts.AspectLockedFrameLayout>
+</FrameLayout>
+```
+
+Note that the resizing only takes place when the `AspectLockedFrameLayout`
+is measured. If you change the aspect ratio, call `requestLayout()` on
+the `AspectLockedFrameLayout` (or any parent container) to get it to resize.
 
 Usage: Mirroing
 ---------------
@@ -55,6 +94,10 @@ And that's it.
 
 This should work for all widgets except `SurfaceView` and perhaps `TextureView`, plus
 things derived from them (e.g., `VideoView`, Maps V2 `MapView`).
+
+Note that `MirroringFrameLayout` inherits from `AspectLockedFrameLayout` and sets its
+aspect ratio to match that of the `Mirror`. This ensures that the `Mirror` will be
+filled without some type of anamorphic stretching.
 
 Dependencies
 ------------
