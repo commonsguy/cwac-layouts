@@ -19,9 +19,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.widget.FrameLayout;
 
-public class MirroringFrameLayout extends FrameLayout {
+public class MirroringFrameLayout extends AspectLockedFrameLayout {
   private Mirror mirror=null;
   private Bitmap bmp=null;
   private Canvas bmpBackedCanvas=null;
@@ -40,6 +39,16 @@ public class MirroringFrameLayout extends FrameLayout {
   public void setMirror(Mirror mirror) {
     this.mirror=mirror;
     mirror.setSource(this);
+    setAspectRatioSource(mirror);
+    
+    // following needed in case mirror has not been sized yet,
+    // so we can determine our aspect ratio
+    
+    post(new Runnable() {
+      public void run() {
+        requestLayout();
+      }
+    });
   }
 
   @Override
