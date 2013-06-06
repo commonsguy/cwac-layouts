@@ -61,7 +61,7 @@ public class AspectLockedFrameLayout extends FrameLayout {
       lockedWidth-=hPadding;
       lockedHeight-=vPadding;
 
-      if (lockedWidth > lockedHeight * localRatio) {
+      if (lockedHeight > 0 && lockedWidth > lockedHeight * localRatio) {
         lockedWidth=(int)(lockedHeight * localRatio + .5);
       }
       else {
