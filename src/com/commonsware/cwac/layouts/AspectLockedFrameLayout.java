@@ -53,6 +53,11 @@ public class AspectLockedFrameLayout extends FrameLayout {
       int lockedWidth=MeasureSpec.getSize(widthSpec);
       int lockedHeight=MeasureSpec.getSize(heightSpec);
 
+      if (lockedWidth == 0 && lockedHeight == 0) {
+        throw new IllegalArgumentException(
+                                           "Both width and height cannot be zero -- watch out for scrollable containers");
+      }
+
       // Get the padding of the border background.
       int hPadding=getPaddingLeft() + getPaddingRight();
       int vPadding=getPaddingTop() + getPaddingBottom();
@@ -61,7 +66,7 @@ public class AspectLockedFrameLayout extends FrameLayout {
       lockedWidth-=hPadding;
       lockedHeight-=vPadding;
 
-      if (lockedWidth > lockedHeight * localRatio) {
+      if (lockedHeight > 0 && (lockedWidth > lockedHeight * localRatio)) {
         lockedWidth=(int)(lockedHeight * localRatio + .5);
       }
       else {
