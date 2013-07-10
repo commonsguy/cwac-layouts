@@ -2,7 +2,7 @@ CWAC Layouts: Custom Containers, Concisely Coded
 ================================================
 
 This Android library project (also
-[available as a JAR](https://github.com/commonsguy/downloads))
+[available as a JAR](https://github.com/commonsguy/cwac-layouts/releases))
 has a handful
 of Android containers (`ViewGroup` implementations) designed to handle
 specific scenarios: 
