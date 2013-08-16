@@ -17,14 +17,14 @@ package com.commonsware.cwac.layouts;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Rect;
+//import android.graphics.Rect;
 import android.util.AttributeSet;
 
 public class MirroringFrameLayout extends AspectLockedFrameLayout {
   private Mirror mirror=null;
   private Bitmap bmp=null;
   private Canvas bmpBackedCanvas=null;
-  private Rect rect=new Rect();
+//  private Rect rect=new Rect();
 
   public MirroringFrameLayout(Context context) {
     this(context, null);
@@ -38,42 +38,53 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout {
 
   public void setMirror(Mirror mirror) {
     this.mirror=mirror;
-    mirror.setSource(this);
-    setAspectRatioSource(mirror);
-    
-    // following needed in case mirror has not been sized yet,
-    // so we can determine our aspect ratio
-    
-    post(new Runnable() {
-      public void run() {
-        requestLayout();
-      }
-    });
+
+    if (mirror != null) {
+      mirror.setSource(this);
+      setAspectRatioSource(mirror);
+
+      // following needed in case mirror has not been sized
+      // yet, so we can determine our aspect ratio
+
+      post(new Runnable() {
+        public void run() {
+          requestLayout();
+        }
+      });
+    }
   }
 
   @Override
   public void draw(Canvas canvas) {
-    bmp.eraseColor(0);
-
-    super.draw(bmpBackedCanvas);
-
-    getDrawingRect(rect);
-    canvas.drawBitmap(bmp, null, rect, null);
-
     if (mirror != null) {
-      mirror.invalidate();
+      bmp.eraseColor(0);
+
+      super.draw(bmpBackedCanvas);
+      super.draw(canvas);
+      
+//      getDrawingRect(rect);
+//      canvas.drawBitmap(bmp, null, rect, null);
+
+      if (mirror != null) {
+        mirror.invalidate();
+      }
+    }
+    else {
+      super.draw(canvas);
     }
   }
 
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-    if (bmp == null || bmp.getWidth() != w || bmp.getHeight() != h) {
-      if (bmp != null) {
-        bmp.recycle();
-      }
+    if (mirror != null) {
+      if (bmp == null || bmp.getWidth() != w || bmp.getHeight() != h) {
+        if (bmp != null) {
+          bmp.recycle();
+        }
 
-      bmp=Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-      bmpBackedCanvas=new Canvas(bmp);
+        bmp=Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        bmpBackedCanvas=new Canvas(bmp);
+      }
     }
 
     super.onSizeChanged(w, h, oldw, oldh);
