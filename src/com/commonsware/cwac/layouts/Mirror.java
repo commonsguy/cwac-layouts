@@ -44,13 +44,18 @@ public class Mirror extends View {
   @Override
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
-    getDrawingRect(rect);
 
-    Bitmap cache=source.getLastBitmap();
+    if (source != null) {
+      getDrawingRect(rect);
 
-    calcCenter(rect.width(), rect.height(), cache.getWidth(),
-               cache.getHeight(), rect);
-    canvas.drawBitmap(cache, null, rect, null);
+      Bitmap cache=source.getLastBitmap();
+
+      if (cache != null) {
+        calcCenter(rect.width(), rect.height(), cache.getWidth(),
+                   cache.getHeight(), rect);
+        canvas.drawBitmap(cache, null, rect, null);
+      }
+    }
   }
 
   // based upon http://stackoverflow.com/a/14679729/115145
