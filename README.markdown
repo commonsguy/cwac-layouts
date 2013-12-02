@@ -12,7 +12,7 @@ fit within a specific aspect ratio
 scales the contents of the `MirroringFrameLayout` onto the `Mirror`
 
 This Android library project is 
-[available as a JAR](https://github.com/commonsguy/cwac-layouts/releases))
+[available as a JAR](https://github.com/commonsguy/cwac-layouts/releases)
 or as an artifact for use with Gradle. To use that, add the following
 blocks to your `build.gradle` file:
 
