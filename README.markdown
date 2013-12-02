@@ -1,9 +1,7 @@
 CWAC Layouts: Custom Containers, Concisely Coded
 ================================================
 
-This Android library project (also
-[available as a JAR](https://github.com/commonsguy/cwac-layouts/releases))
-has a handful
+This project has a handful
 of Android containers (`ViewGroup` implementations) designed to handle
 specific scenarios: 
 
@@ -12,6 +10,26 @@ fit within a specific aspect ratio
 
 - `MirroringFrameLayout` and an associated `Mirror` that duplicates and
 scales the contents of the `MirroringFrameLayout` onto the `Mirror`
+
+This Android library project is 
+[available as a JAR](https://github.com/commonsguy/cwac-layouts/releases))
+or as an artifact for use with Gradle. To use that, add the following
+blocks to your `build.gradle` file:
+
+```groovy
+repositories {
+    maven {
+        url "https://repo.commonsware.com.s3.amazonaws.com"
+    }
+}
+
+dependencies {
+    compile 'com.commonsware.cwac:layouts:0.3.0'
+}
+```
+
+Or, if you cannot use SSL, use `http://repo.commonsware.com` for the repository
+URL.
 
 Usage: AspectLockedFrameLayout
 ------------------------------
@@ -106,7 +124,7 @@ it is only being tested on API Level 8+.
 
 Version
 -------
-This is version v0.2.2 of this module, meaning it is coming along nicely.
+This is version v0.3.0 of this module, meaning it is coming along nicely.
 
 Demo
 ----
@@ -141,6 +159,7 @@ the fence may work, but it may not.
 
 Release Notes
 -------------
+- v0.3.0: migrated to support Gradle and publish an AAR artifact
 - v0.2.2: improved efficiency and resiliency to source/mirror issues
 - v0.2.1: fixed `AspectLockedFrameLayout` to handle zero height/width better
 - v0.2.0: added `AspectLockedFrameLayout` and used for `MirroringFrameLayout`
