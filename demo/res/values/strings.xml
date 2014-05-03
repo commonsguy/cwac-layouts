@@ -2,4 +2,6 @@
 
 	<string name="app_name">CWAC-Layouts Demo</string>
 
+	<string name="web_demo">CWAC-Layouts Web Demo</string>
+
 </resources>

@@ -8,20 +8,20 @@
 	<FrameLayout
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:layout_weight="1">
+		android:layout_weight="1"
+		android:background="#8800FF00">
 
 		<com.commonsware.cwac.layouts.MirroringFrameLayout
 			android:id="@+id/source"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:layout_gravity="center">
+			android:layout_gravity="center"
+			android:background="#88FF0000">
 
-			<EditText
-				android:id="@+id/editor"
+			<WebView
+				android:id="@+id/webkit"
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:gravity="left|top"
-				android:inputType="textMultiLine"/>
+				android:layout_height="match_parent"/>
 		</com.commonsware.cwac.layouts.MirroringFrameLayout>
 	</FrameLayout>
 

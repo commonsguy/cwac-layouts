@@ -14,22 +14,30 @@
 
 package com.commonsware.cwac.layouts.demo;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.webkit.WebView;
 import com.commonsware.cwac.layouts.Mirror;
 import com.commonsware.cwac.layouts.MirroringFrameLayout;
 
-public class SimpleMirrorActivity extends Activity {
+public class WebMirrorActivity extends Activity {
   MirroringFrameLayout source=null;
 
+  @SuppressLint("SetJavaScriptEnabled")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.simple_mirror);
+    setContentView(R.layout.web_mirror);
 
     source=(MirroringFrameLayout)findViewById(R.id.source);
     Mirror target=(Mirror)findViewById(R.id.target);
 
     source.setMirror(target);
+
+    WebView wv=(WebView)findViewById(R.id.webkit);
+
+    wv.getSettings().setJavaScriptEnabled(true);
+    wv.loadUrl("http://commonsware.com");
   }
 }
