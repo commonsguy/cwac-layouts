@@ -46,16 +46,8 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
       mirror.setSource(this);
       setAspectRatioSource(mirror);
 
-      // following needed in case mirror has not been sized
-      // yet, so we can determine our aspect ratio
-
-      post(new Runnable() {
-        public void run() {
-          requestLayout();
-          getViewTreeObserver().addOnPreDrawListener(MirroringFrameLayout.this);
-          getViewTreeObserver().addOnScrollChangedListener(MirroringFrameLayout.this);
-        }
-      });
+      getViewTreeObserver().addOnPreDrawListener(MirroringFrameLayout.this);
+      getViewTreeObserver().addOnScrollChangedListener(MirroringFrameLayout.this);
     }
   }
 
@@ -79,6 +71,35 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
 
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    initBitmap(w, h);
+    
+    super.onSizeChanged(w, h, oldw, oldh);
+  }
+
+  @Override
+  public boolean onPreDraw() {
+    if (mirror!=null) {
+      if (bmp==null) {
+        requestLayout();
+      }
+      else {
+        invalidate();
+      }
+    }
+
+    return(true);
+  }
+
+  @Override
+  public void onScrollChanged() {
+    onPreDraw();
+  }
+
+  Bitmap getLastBitmap() {
+    return(bmp);
+  }
+  
+  private void initBitmap(int w, int h) {
     if (mirror != null) {
       if (bmp == null || bmp.getWidth() != w || bmp.getHeight() != h) {
         if (bmp != null) {
@@ -89,23 +110,5 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
         bmpBackedCanvas=new Canvas(bmp);
       }
     }
-
-    super.onSizeChanged(w, h, oldw, oldh);
-  }
-
-  @Override
-  public boolean onPreDraw() {
-    invalidate();
-
-    return(true);
-  }
-
-  @Override
-  public void onScrollChanged() {
-    invalidate();
-  }
-
-  Bitmap getLastBitmap() {
-    return(bmp);
   }
 }
