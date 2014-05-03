@@ -24,7 +24,7 @@ import android.view.ViewTreeObserver.OnScrollChangedListener;
 
 public class MirroringFrameLayout extends AspectLockedFrameLayout
     implements OnPreDrawListener, OnScrollChangedListener {
-  private Mirror mirror=null;
+  private MirrorSink mirror=null;
   private Bitmap bmp=null;
   private Canvas bmpBackedCanvas=null;
   private Rect rect=new Rect();
@@ -39,16 +39,28 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
     setWillNotDraw(false);
   }
 
-  public void setMirror(Mirror mirror) {
+  public void setMirror(MirrorSink mirror) {
     this.mirror=mirror;
 
     if (mirror != null) {
-      mirror.setSource(this);
       setAspectRatioSource(mirror);
-
-      getViewTreeObserver().addOnPreDrawListener(MirroringFrameLayout.this);
-      getViewTreeObserver().addOnScrollChangedListener(MirroringFrameLayout.this);
     }
+  }
+
+  @Override
+  public void onAttachedToWindow() {
+    super.onAttachedToWindow();
+
+    getViewTreeObserver().addOnPreDrawListener(MirroringFrameLayout.this);
+    getViewTreeObserver().addOnScrollChangedListener(MirroringFrameLayout.this);
+  }
+
+  @Override
+  public void onDetachedFromWindow() {
+    getViewTreeObserver().removeOnPreDrawListener(this);
+    getViewTreeObserver().removeOnScrollChangedListener(this);
+    
+    super.onDetachedFromWindow();
   }
 
   @Override
@@ -59,10 +71,7 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
       super.draw(bmpBackedCanvas);
       getDrawingRect(rect);
       canvas.drawBitmap(bmp, null, rect, null);
-
-      if (mirror != null) {
-        mirror.invalidate();
-      }
+      mirror.update(bmp);
     }
     else {
       super.draw(canvas);
@@ -72,14 +81,14 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     initBitmap(w, h);
-    
+
     super.onSizeChanged(w, h, oldw, oldh);
   }
 
   @Override
   public boolean onPreDraw() {
-    if (mirror!=null) {
-      if (bmp==null) {
+    if (mirror != null) {
+      if (bmp == null) {
         requestLayout();
       }
       else {
@@ -95,10 +104,6 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
     onPreDraw();
   }
 
-  Bitmap getLastBitmap() {
-    return(bmp);
-  }
-  
   private void initBitmap(int w, int h) {
     if (mirror != null) {
       if (bmp == null || bmp.getWidth() != w || bmp.getHeight() != h) {

@@ -1,5 +1,5 @@
 /***
-  Copyright (c) 2013 CommonsWare, LLC
+  Copyright (c) 2013-2014 CommonsWare, LLC
   
   Licensed under the Apache License, Version 2.0 (the "License"); you may
   not use this file except in compliance with the License. You may obtain
@@ -21,9 +21,9 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class Mirror extends View {
-  private MirroringFrameLayout source=null;
+public class Mirror extends View implements MirrorSink {
   private Rect rect=new Rect();
+  private Bitmap bmp=null;
 
   public Mirror(Context context) {
     super(context);
@@ -37,31 +37,28 @@ public class Mirror extends View {
     super(context, attrs, defStyle);
   }
 
-  public void setSource(MirroringFrameLayout source) {
-    this.source=source;
+  @Override
+  public void update(Bitmap bmp) {
+    this.bmp=bmp;
+    invalidate();
   }
 
   @Override
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
 
-    if (source != null) {
+    if (bmp != null) {
       getDrawingRect(rect);
 
-      Bitmap cache=source.getLastBitmap();
-
-      if (cache != null) {
-        calcCenter(rect.width(), rect.height(), cache.getWidth(),
-                   cache.getHeight(), rect);
-        canvas.drawBitmap(cache, null, rect, null);
-      }
+      calcCenter(rect.width(), rect.height(), bmp.getWidth(),
+                 bmp.getHeight(), rect);
+      canvas.drawBitmap(bmp, null, rect, null);
     }
   }
 
   // based upon http://stackoverflow.com/a/14679729/115145
 
-  private static void calcCenter(int vw, int vh, int iw, int ih,
-                                 Rect out) {
+  static void calcCenter(int vw, int vh, int iw, int ih, Rect out) {
     double scale=
         Math.min((double)vw / (double)iw, (double)vh / (double)ih);
 
