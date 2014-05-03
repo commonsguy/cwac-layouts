@@ -17,13 +17,17 @@ package com.commonsware.cwac.layouts;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.util.AttributeSet;
-//import android.graphics.Rect;
+import android.view.ViewTreeObserver.OnPreDrawListener;
+import android.view.ViewTreeObserver.OnScrollChangedListener;
 
-public class MirroringFrameLayout extends AspectLockedFrameLayout {
+public class MirroringFrameLayout extends AspectLockedFrameLayout
+    implements OnPreDrawListener, OnScrollChangedListener {
   private Mirror mirror=null;
   private Bitmap bmp=null;
   private Canvas bmpBackedCanvas=null;
+  private Rect rect=new Rect();
 
   public MirroringFrameLayout(Context context) {
     this(context, null);
@@ -48,6 +52,8 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout {
       post(new Runnable() {
         public void run() {
           requestLayout();
+          getViewTreeObserver().addOnPreDrawListener(MirroringFrameLayout.this);
+          getViewTreeObserver().addOnScrollChangedListener(MirroringFrameLayout.this);
         }
       });
     }
@@ -56,13 +62,11 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout {
   @Override
   public void draw(Canvas canvas) {
     if (mirror != null) {
-
-      android.util.Log.wtf(getClass().getSimpleName(), "draw()");
-
       bmp.eraseColor(0);
 
       super.draw(bmpBackedCanvas);
-      super.draw(canvas);
+      getDrawingRect(rect);
+      canvas.drawBitmap(bmp, null, rect, null);
 
       if (mirror != null) {
         mirror.invalidate();
@@ -87,6 +91,18 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout {
     }
 
     super.onSizeChanged(w, h, oldw, oldh);
+  }
+
+  @Override
+  public boolean onPreDraw() {
+    invalidate();
+
+    return(true);
+  }
+
+  @Override
+  public void onScrollChanged() {
+    invalidate();
   }
 
   Bitmap getLastBitmap() {
