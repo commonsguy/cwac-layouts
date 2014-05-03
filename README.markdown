@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.commonsware.cwac:layouts:0.3.0'
+    compile 'com.commonsware.cwac:layouts:0.4.0'
 }
 ```
 
@@ -80,19 +80,19 @@ can be hosted by a `Presentation`.
 To mirror a widget or widget hierarchy, wrap it in a `com.commonsware.cwac.layouts.MirroringFrameLayout`:
 
 ```xml
-	<com.commonsware.cwac.layouts.MirroringFrameLayout
-		android:id="@+id/source"
-		android:layout_width="1000px"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:background="#88FF0000">
+<com.commonsware.cwac.layouts.MirroringFrameLayout
+	android:id="@+id/source"
+	android:layout_width="1000px"
+	android:layout_height="0dp"
+	android:layout_weight="1"
+	android:background="#88FF0000">
 
-		<WebView
-		android:id="@+id/webkit"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"/>
+	<WebView
+	android:id="@+id/webkit"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"/>
 
-	</com.commonsware.cwac.layouts.MirroringFrameLayout>
+</com.commonsware.cwac.layouts.MirroringFrameLayout>
 ```
 
 Also add a `com.commonsware.cwac.layouts.Mirror` widget where you want the duplicate
@@ -101,11 +101,11 @@ contents to be rendered.
 Then, in your Java code, attach the `Mirror` to the `MirroringFrameLayout`:
 
 ```java
-    MirroringFrameLayout source=
-        (MirroringFrameLayout)findViewById(R.id.source);
-    Mirror target=(Mirror)findViewById(R.id.target);
+MirroringFrameLayout source=
+    (MirroringFrameLayout)findViewById(R.id.source);
+Mirror target=(Mirror)findViewById(R.id.target);
 
-    source.setMirror(target);
+source.setMirror(target);
 ```
 
 And that's it.
@@ -117,6 +117,9 @@ Note that `MirroringFrameLayout` inherits from `AspectLockedFrameLayout` and set
 aspect ratio to match that of the `Mirror`. This ensures that the `Mirror` will be
 filled without some type of anamorphic stretching.
 
+You are welcome to implement the `MirrorSink` interface on something and use that
+as the destination for the mirroring, rather than use a `Mirror`.
+
 Dependencies
 ------------
 This project has no dependencies and should work on most versions of Android, though
@@ -124,13 +127,13 @@ it is only being tested on API Level 8+.
 
 Version
 -------
-This is version v0.3.0 of this module, meaning it is coming along nicely.
+This is version v0.4.0 of this module, meaning it is coming along nicely.
 
 Demo
 ----
 In the `demo/` sub-project you will find
-a `SimpleMirrorActivity` activity that demonstrates the use of `MirroringFrameLayout`
-and `Mirror`.
+a `SimpleMirrorActivity` activity and a `WebMirrorActivity` that each
+demonstrates the use of `MirroringFrameLayout` and `Mirror`.
 
 License
 -------
@@ -159,6 +162,7 @@ the fence may work, but it may not.
 
 Release Notes
 -------------
+- v0.4.0: switched to `ViewTreeObserver` for more reliable updating; added `MirrorSink`
 - v0.3.0: migrated to support Gradle and publish an AAR artifact
 - v0.2.2: improved efficiency and resiliency to source/mirror issues
 - v0.2.1: fixed `AspectLockedFrameLayout` to handle zero height/width better

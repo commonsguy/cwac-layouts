@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.5.+'
+        classpath 'com.android.tools.build:gradle:0.9.+'
         classpath 'com.github.dcendents:android-maven-plugin:1.0'
     }
 }
@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'android-library'
 apply plugin: 'android-maven'
 
-version '0.3.0'
+version '0.4.0'
 group 'com.commonsware.cwac'
 
 dependencies {
@@ -20,7 +20,7 @@ dependencies {
 
 android {
     compileSdkVersion 17
-    buildToolsVersion "18.1.0"
+    buildToolsVersion "19.0.1"
 
     sourceSets {
         main {
@@ -48,5 +48,5 @@ android.libraryVariants.all { variant ->
   def task = project.tasks.create "jar${name.capitalize()}", Jar
   task.dependsOn variant.javaCompile
   task.from variant.javaCompile.destinationDir
-  artifacts.add('archives', task);
+  // artifacts.add('archives', task);
 }
