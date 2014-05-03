@@ -22,7 +22,7 @@ import android.widget.FrameLayout;
 
 public class AspectLockedFrameLayout extends FrameLayout {
   private double aspectRatio=0.0;
-  private View aspectRatioSource=null;
+  private AspectRatioSource aspectRatioSource=null;
 
   public AspectLockedFrameLayout(Context context) {
     super(context);
@@ -85,7 +85,11 @@ public class AspectLockedFrameLayout extends FrameLayout {
     }
   }
 
-  public void setAspectRatioSource(View aspectRatioSource) {
+  public void setAspectRatioSource(View v) {
+    this.aspectRatioSource=new ViewAspectRatioSource(v);
+  }
+
+  public void setAspectRatioSource(AspectRatioSource aspectRatioSource) {
     this.aspectRatioSource=aspectRatioSource;
   }
 
@@ -101,6 +105,31 @@ public class AspectLockedFrameLayout extends FrameLayout {
     if (this.aspectRatio != aspectRatio) {
       this.aspectRatio=aspectRatio;
       requestLayout();
+    }
+  }
+
+  public interface AspectRatioSource {
+    int getWidth();
+
+    int getHeight();
+  }
+
+  private static class ViewAspectRatioSource implements
+      AspectRatioSource {
+    private View v=null;
+
+    ViewAspectRatioSource(View v) {
+      this.v=v;
+    }
+
+    @Override
+    public int getWidth() {
+      return(v.getWidth());
+    }
+
+    @Override
+    public int getHeight() {
+      return(v.getHeight());
     }
   }
 }
