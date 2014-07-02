@@ -31,6 +31,8 @@ dependencies {
 Or, if you cannot use SSL, use `http://repo.commonsware.com` for the repository
 URL.
 
+**NOTE**: The JAR name, as of v0.4.1, has a `cwac-` prefix, to help distinguish it from other JARs.
+
 Usage: AspectLockedFrameLayout
 ------------------------------
 `AspectLockedFrameLayout` inherits from `FrameLayout`, and so you start by
@@ -144,7 +146,8 @@ file.
 Questions
 ---------
 If you have questions regarding the use of this code, please post a question
-on [StackOverflow](http://stackoverflow.com/questions/ask) tagged with `commonsware` and `android`. Be sure to indicate
+on [StackOverflow](http://stackoverflow.com/questions/ask) tagged with
+`commonsware-cwac` and `android` after [searching to see if there already is an answer](https://stackoverflow.com/search?q=[commonsware-cwac]+layouts). Be sure to indicate
 what CWAC module you are having issues with, and be sure to include source code 
 and stack traces if you are encountering crashes.
 
@@ -162,6 +165,7 @@ the fence may work, but it may not.
 
 Release Notes
 -------------
+- v0.4.1: updated Gradle, fixed manifest for merging, added `cwac-` prefix to JAR
 - v0.4.0: switched to `ViewTreeObserver` for more reliable updating; added `MirrorSink`
 - v0.3.0: migrated to support Gradle and publish an AAR artifact
 - v0.2.2: improved efficiency and resiliency to source/mirror issues
