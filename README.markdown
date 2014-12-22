@@ -129,7 +129,7 @@ it is only being tested on API Level 8+.
 
 Version
 -------
-This is version v0.4.0 of this module, meaning it is coming along nicely.
+This is version v0.4.2 of this module, meaning it is coming along nicely.
 
 Demo
 ----
@@ -165,6 +165,7 @@ the fence may work, but it may not.
 
 Release Notes
 -------------
+- v0.4.2: updated for Android Studio 1.0 and new AAR publishing system
 - v0.4.1: updated Gradle, fixed manifest for merging, added `cwac-` prefix to JAR
 - v0.4.0: switched to `ViewTreeObserver` for more reliable updating; added `MirrorSink`
 - v0.3.0: migrated to support Gradle and publish an AAR artifact
