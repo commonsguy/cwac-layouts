@@ -45,6 +45,8 @@ ratio should be matched), then `AspectLockedFrameLayout` will reduce its height
 or width to maintain the requested aspect ratio. This affects the children of
 the `AspectLockedFrameLayout` as well, of course.
 
+You can also use `lockAspectRatioImmediately` or `lockAspectRatioOnLayoutChange` to straightaway lock the `AspectLockedFrameLayout` aspect ratio to its own.
+
 Since the `AspectLockedFrameLayout` effectively overrides and reduces its size,
 you can use `android:layout_gravity` to position the shrunken
 `AspectLockedFrameLayout` within its parent:
