@@ -16,8 +16,10 @@
 package com.commonsware.cwac.layouts;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
 public class AspectLockedFrameLayout extends FrameLayout {
@@ -105,6 +107,32 @@ public class AspectLockedFrameLayout extends FrameLayout {
     if (this.aspectRatio != aspectRatio) {
       this.aspectRatio=aspectRatio;
       requestLayout();
+    }
+  }
+
+  public void lockAspectRatioToCurrent(boolean applyOnNextLayoutChange) {
+    if (applyOnNextLayoutChange) {
+      final ViewTreeObserver observer=getViewTreeObserver();
+
+      observer.addOnGlobalLayoutListener(
+        new ViewTreeObserver.OnGlobalLayoutListener() {
+          @Override
+          public void onGlobalLayout() {
+            setAspectRatio(getWidth()/getHeight());
+
+            if (observer!=null && observer.isAlive()) {
+              if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN) {
+                observer.removeOnGlobalLayoutListener(this);
+              }
+              else {
+                observer.removeGlobalOnLayoutListener(this);
+              }
+            }
+          }
+        });
+    }
+    else {
+      setAspectRatio(getWidth()/getHeight());
     }
   }
 
