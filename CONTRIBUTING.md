@@ -18,11 +18,6 @@ If you have an idea for how to make the library better, feel free to file an [is
 You will have better luck in getting the feature implemented if you can "sell" the library author
 on how this feature will help the library author.
 
-## Asking for Other Sorts of Help
-
-Please read [the project documentation](https://github.com/commonsguy/cwac-cam2#questions)
-for instructions on where and how to ask questions.
-
 ## Contributing Code
 
 This project is not set up to accept much in the way of pull requests or other code contributions, for
