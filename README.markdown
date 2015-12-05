@@ -137,6 +137,12 @@ In the `demo/` sub-project you will find
 a `SimpleMirrorActivity` activity and a `WebMirrorActivity` that each
 demonstrates the use of `MirroringFrameLayout` and `Mirror`.
 
+Additional Documentation
+------------------------
+[The Busy Coder's Guide to Android Development](https://commonsware.com/Android)
+contains a chapter on custom views that covers the classes from this
+library, how to use them, and how they work.
+
 License
 -------
 The code in this project is licensed under the Apache
