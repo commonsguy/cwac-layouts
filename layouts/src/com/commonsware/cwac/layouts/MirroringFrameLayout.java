@@ -51,8 +51,8 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
   public void onAttachedToWindow() {
     super.onAttachedToWindow();
 
-    getViewTreeObserver().addOnPreDrawListener(MirroringFrameLayout.this);
-    getViewTreeObserver().addOnScrollChangedListener(MirroringFrameLayout.this);
+    getViewTreeObserver().addOnPreDrawListener(this);
+    getViewTreeObserver().addOnScrollChangedListener(this);
   }
 
   @Override
