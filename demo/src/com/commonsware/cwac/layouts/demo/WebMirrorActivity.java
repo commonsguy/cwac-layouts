@@ -38,6 +38,6 @@ public class WebMirrorActivity extends Activity {
     WebView wv=(WebView)findViewById(R.id.webkit);
 
     wv.getSettings().setJavaScriptEnabled(true);
-    wv.loadUrl("http://commonsware.com");
+    wv.loadUrl("https://commonsware.com");
   }
 }
