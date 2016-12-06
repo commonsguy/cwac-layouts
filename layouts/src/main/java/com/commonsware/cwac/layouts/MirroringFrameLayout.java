@@ -22,6 +22,18 @@ import android.util.AttributeSet;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.ViewTreeObserver.OnScrollChangedListener;
 
+/**
+ * A FrameLayout that locks its aspect ratio (courtesy of AspectLockedFrameLayout)
+ * and supplies "screenshots" of its contents to an associated MirrorSink,
+ * such as a Mirror.
+ *
+ * Principally, MirroringFrameLayout and Mirror are designed for use with
+ * Android's Presentation system. The MirroringFrameLayout would be part of the
+ * UI of the activity on the mobile device, allowing for user interaction. The
+ * Mirror would be used in the Presentation to show an audience (e.g., via a
+ * projector) what is shown inside the MirroringFrameLayout on the mobile
+ * device.
+ */
 public class MirroringFrameLayout extends AspectLockedFrameLayout
     implements OnPreDrawListener, OnScrollChangedListener {
   private MirrorSink mirror=null;
@@ -29,16 +41,28 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
   private Canvas bmpBackedCanvas=null;
   private Rect rect=new Rect();
 
+  /**
+   * {@inheritDoc}
+   */
   public MirroringFrameLayout(Context context) {
     this(context, null);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public MirroringFrameLayout(Context context, AttributeSet attrs) {
     super(context, attrs);
 
     setWillNotDraw(false);
   }
 
+  /**
+   * Associate a MirrorSink; this sink will be given bitmaps representing
+   * updated contents of the MirroringFrameLayout as those contents change.
+   *
+   * @param mirror a Mirror or other MirrorSink implementation
+   */
   public void setMirror(MirrorSink mirror) {
     this.mirror=mirror;
 
@@ -47,6 +71,9 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void onAttachedToWindow() {
     super.onAttachedToWindow();
@@ -55,6 +82,9 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
     getViewTreeObserver().addOnScrollChangedListener(this);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void onDetachedFromWindow() {
     getViewTreeObserver().removeOnPreDrawListener(this);
@@ -63,6 +93,9 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
     super.onDetachedFromWindow();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void draw(Canvas canvas) {
     if (mirror != null) {
@@ -78,6 +111,9 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     initBitmap(w, h);
@@ -85,6 +121,9 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
     super.onSizeChanged(w, h, oldw, oldh);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean onPreDraw() {
     if (mirror != null) {
@@ -99,6 +138,9 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
     return(true);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void onScrollChanged() {
     onPreDraw();

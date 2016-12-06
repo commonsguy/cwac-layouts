@@ -22,14 +22,26 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
+/**
+ * FrameLayout that keeps its contents locked to a particular aspect
+ * ratio. Nowadays, for simple cases, you can accomplish the same thing
+ * using ConstraintLayout, but this class predated ConstraintLayout by a few
+ * years.
+ */
 public class AspectLockedFrameLayout extends FrameLayout {
   private double aspectRatio=0.0;
   private AspectRatioSource aspectRatioSource=null;
 
+  /**
+   * {@inheritDoc}
+   */
   public AspectLockedFrameLayout(Context context) {
     super(context);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public AspectLockedFrameLayout(Context context, AttributeSet attrs) {
     super(context, attrs);
   }
@@ -37,6 +49,9 @@ public class AspectLockedFrameLayout extends FrameLayout {
   // from com.android.camera.PreviewFrameLayout, with slight
   // modifications
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void onMeasure(int widthSpec, int heightSpec) {
     double localRatio=aspectRatio;
@@ -87,10 +102,25 @@ public class AspectLockedFrameLayout extends FrameLayout {
     }
   }
 
+  /**
+   * Supplies a View as a source. The AspectLockedFrameLayout will aim to
+   * match the aspect ratio of this View. This is a one-time check; if the
+   * View changes its aspect ratio later, the AspectLockedFrameLayout will
+   * not attempt to match it.
+   *
+   * @param v some View
+   */
   public void setAspectRatioSource(View v) {
     this.aspectRatioSource=new ViewAspectRatioSource(v);
   }
 
+  /**
+   * Supplies an AspectRatioSource as a source of aspect ratio data. The
+   * AspectLockedFrameLayout will aim to keep its aspect ratio the same as
+   * that provided by the source.
+   *
+   * @param aspectRatioSource a source of aspect ratio data
+   */
   public void setAspectRatioSource(AspectRatioSource aspectRatioSource) {
     this.aspectRatioSource=aspectRatioSource;
   }
@@ -98,6 +128,11 @@ public class AspectLockedFrameLayout extends FrameLayout {
   // from com.android.camera.PreviewFrameLayout, with slight
   // modifications
 
+  /**
+   * Locks the aspect ratio to the supplied value.
+   *
+   * @param aspectRatio the aspect ratio to lock to, expressed as a double
+   */
   public void setAspectRatio(double aspectRatio) {
     if (aspectRatio <= 0.0) {
       throw new IllegalArgumentException(
@@ -110,6 +145,9 @@ public class AspectLockedFrameLayout extends FrameLayout {
     }
   }
 
+  /**
+   * A source of aspect ratio data.
+   */
   public interface AspectRatioSource {
     int getWidth();
 
