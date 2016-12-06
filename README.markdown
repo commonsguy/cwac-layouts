@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.commonsware.cwac:layouts:0.4.0'
+    compile 'com.commonsware.cwac:layouts:0.4.3'
 }
 ```
 
@@ -122,6 +122,10 @@ filled without some type of anamorphic stretching.
 You are welcome to implement the `MirrorSink` interface on something and use that
 as the destination for the mirroring, rather than use a `Mirror`.
 
+JavaDocs
+--------
+An API reference, in the form of JavaDocs, is available [online](http://javadocs.commonsware.com/cwac/layouts/index.html).
+
 Dependencies
 ------------
 This project has no dependencies and should work on most versions of Android, though
@@ -129,7 +133,7 @@ it is only being tested on API Level 8+.
 
 Version
 -------
-This is version v0.4.2 of this module, meaning it is coming along nicely.
+This is version v0.4.3 of this module, meaning it is coming along nicely.
 
 Demo
 ----
@@ -163,7 +167,12 @@ The [contribution guidelines](CONTRIBUTING.md)
 provide some suggestions for how to create a bug report that will get
 the problem fixed the fastest.
 
-Do not ask for help via Twitter.
+You are also welcome to join
+[the CommonsWare Community](https://community.commonsware.com/)
+and post questions
+and ideas to [the CWAC category](https://community.commonsware.com/c/cwac).
+
+Do not ask for help via social media.
 
 Also, if you plan on hacking
 on the code with an eye for contributing something back,
@@ -171,6 +180,7 @@ please read the [contribution guidelines](CONTRIBUTING.md).
 
 Release Notes
 -------------
+- v0.4.3: reorganized code into Android Studio standard structured, added JavaDocs
 - v0.4.2: updated for Android Studio 1.0 and new AAR publishing system
 - v0.4.1: updated Gradle, fixed manifest for merging, added `cwac-` prefix to JAR
 - v0.4.0: switched to `ViewTreeObserver` for more reliable updating; added `MirrorSink`
