@@ -1,5 +1,5 @@
 /***
-  Copyright (c) 2013 CommonsWare, LLC
+  Copyright (c) 2013-2018 CommonsWare, LLC
   
   Licensed under the Apache License, Version 2.0 (the "License"); you may
   not use this file except in compliance with the License. You may obtain
@@ -30,12 +30,12 @@ public class WebMirrorActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.web_mirror);
 
-    source=(MirroringFrameLayout)findViewById(R.id.source);
-    Mirror target=(Mirror)findViewById(R.id.target);
+    source=findViewById(R.id.source);
+    Mirror target=findViewById(R.id.target);
 
     source.setMirror(target);
 
-    WebView wv=(WebView)findViewById(R.id.webkit);
+    WebView wv=findViewById(R.id.webkit);
 
     wv.getSettings().setJavaScriptEnabled(true);
     wv.loadUrl("https://commonsware.com");
