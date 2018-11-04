@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.commonsware.cwac:layouts:0.4.3'
+    compile 'com.commonsware.cwac:layouts:0.4.4'
 }
 ```
 
@@ -69,9 +69,12 @@ Note that the resizing only takes place when the `AspectLockedFrameLayout`
 is measured. If you change the aspect ratio, call `requestLayout()` on
 the `AspectLockedFrameLayout` (or any parent container) to get it to resize.
 
+**NOTE**: `ConstraintLayout` also offers aspect ratio control, so you might
+consider using it if it better fits your needs.
+
 Usage: Mirroing
 ---------------
-The mirror classes are specifically designed for use with Android 4.2's
+The mirror classes are specifically designed for use with Android's
 `Presentation` class, specifically for actual presentations. In a presentation,
 the presenter needs to be able to see and control some widgets, but the
 audience simply needs to see the widgets via a projector or other external
@@ -112,7 +115,7 @@ source.setMirror(target);
 
 And that's it.
 
-This should work for all widgets except `SurfaceView` and perhaps `TextureView`, plus
+This should work for all widgets except `SurfaceView` and `TextureView`, plus
 things derived from them (e.g., `VideoView`, Maps V2 `MapView`).
 
 Note that `MirroringFrameLayout` inherits from `AspectLockedFrameLayout` and sets its
@@ -133,7 +136,7 @@ it is only being tested on API Level 8+.
 
 Version
 -------
-This is version v0.4.3 of this module, meaning it is coming along nicely.
+This is version v0.4.4 of this module, meaning it is coming along nicely.
 
 Demo
 ----
@@ -180,6 +183,7 @@ please read the [contribution guidelines](CONTRIBUTING.md).
 
 Release Notes
 -------------
+- v0.4.4: updated build instructions, removed some unnecessary casts
 - v0.4.3: reorganized code into Android Studio standard structured, added JavaDocs
 - v0.4.2: updated for Android Studio 1.0 and new AAR publishing system
 - v0.4.1: updated Gradle, fixed manifest for merging, added `cwac-` prefix to JAR
