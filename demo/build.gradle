@@ -6,12 +6,16 @@ repositories {
     }
 }
 
-dependencies {
-    debugCompile project(':layouts')
-    releaseCompile 'com.commonsware.cwac:layouts:0.4.3'
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 28
+    }
 }
 
-android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+dependencies {
+    debugImplementation project(':layouts')
+    releaseImplementation 'com.commonsware.cwac:layouts:0.4.3'
 }
