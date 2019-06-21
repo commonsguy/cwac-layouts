@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.commonsware.cwac:layouts:0.4.4'
+    implementation 'com.commonsware.cwac:layouts:0.4.5'
 }
 ```
 
@@ -136,7 +136,7 @@ it is only being tested on API Level 8+.
 
 Version
 -------
-This is version v0.4.4 of this module, meaning it is coming along nicely.
+This is version v0.4.5 of this module, meaning it is coming along nicely.
 
 Demo
 ----
@@ -183,6 +183,7 @@ please read the [contribution guidelines](CONTRIBUTING.md).
 
 Release Notes
 -------------
+- v0.4.5: updated build instructions, added null check for bitmap in `MirroringFrameLayout`
 - v0.4.4: updated build instructions, removed some unnecessary casts
 - v0.4.3: reorganized code into Android Studio standard structured, added JavaDocs
 - v0.4.2: updated for Android Studio 1.0 and new AAR publishing system

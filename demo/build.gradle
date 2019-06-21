@@ -17,5 +17,5 @@ android {
 
 dependencies {
     debugImplementation project(':layouts')
-    releaseImplementation 'com.commonsware.cwac:layouts:0.4.4'
+    releaseImplementation 'com.commonsware.cwac:layouts:0.4.5'
 }
