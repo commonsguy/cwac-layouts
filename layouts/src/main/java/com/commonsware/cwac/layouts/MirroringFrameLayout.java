@@ -98,7 +98,7 @@ public class MirroringFrameLayout extends AspectLockedFrameLayout
    */
   @Override
   public void draw(Canvas canvas) {
-    if (mirror != null) {
+    if (mirror != null && bmp != null) {
       bmp.eraseColor(0);
 
       super.draw(bmpBackedCanvas);
