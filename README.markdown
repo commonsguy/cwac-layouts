@@ -1,6 +1,8 @@
 CWAC Layouts: Custom Containers, Concisely Coded
 ================================================
 
+**UPDATE 2021-05-08**: This project is discontinued. This repository will be removed from public access on or after 1 December 2021.
+
 This project has a handful
 of Android containers (`ViewGroup` implementations) designed to handle
 specific scenarios: 
